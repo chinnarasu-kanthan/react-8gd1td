@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useHistory, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
@@ -9,10 +9,13 @@ import { logout } from "./actions/auth";
 import { clearMessage } from './actions/message';
 import { createBrowserHistory } from 'history';
 
+
 export default function App() {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const history = createBrowserHistory();
+  //const history = createBrowserHistory();
+
+  const history = useHistory();
 
   useEffect(() => {
     history.listen((location) => {
@@ -21,10 +24,9 @@ export default function App() {
   }, [dispatch]);
 
   const logOut = useCallback(() => {
-  
     dispatch(logout());
-    navigate('/');
   }, [dispatch]);
+ 
   return (
     <BrowserRouter>
       <div>
@@ -45,7 +47,7 @@ export default function App() {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route exact path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
 
