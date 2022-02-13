@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, navigate } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
@@ -12,6 +12,7 @@ import { createBrowserHistory } from 'history';
 export default function App() {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const history = createBrowserHistory();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function App() {
   const logOut = useCallback(() => {
   
     dispatch(logout());
+    navigate('/');
   }, [dispatch]);
   return (
     <BrowserRouter>
@@ -31,9 +33,9 @@ export default function App() {
           <nav className="navbar navbar-expand bg-primary">
             <div className="navbar-nav mr-auto">
               <li className="nav-item ">
-                <a href="/login" className="navbar-brand pull-right" onClick={logOut}>
+                <span className="navbar-brand pull-right" onClick={logOut}>
                   LogOut
-                </a>
+                </span>
                 </li>
             </div>
           </nav>
