@@ -22,13 +22,11 @@ export default function App() {
     });
   }, [dispatch]);
   
-  useEffect(() => {
-    if(!(isLoggedIn)){
-      history.push('/login');
-    }
-  }, [isLoggedIn]);
+  
   const logOut = useCallback(() => {
     dispatch(logout());
+    history.push('/login');
+    window.location.reload();
   }, [dispatch]);
  
   return (
