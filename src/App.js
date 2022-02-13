@@ -11,18 +11,22 @@ import { createBrowserHistory } from 'history';
 
 
 export default function App() {
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  //const history = createBrowserHistory();
-
-  const history = useHistory();
+  const history = createBrowserHistory();
 
   useEffect(() => {
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-
+  
+  useEffect(() => {
+    if(!(isLoggedIn)){
+      history.push('/login');
+    }
+  }, [isLoggedIn]);
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
@@ -47,7 +51,7 @@ export default function App() {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
+            <Route exact path="/login" element={<Login />} />
           </Routes>
         </div>
 
