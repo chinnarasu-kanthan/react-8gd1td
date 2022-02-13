@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
@@ -12,7 +12,6 @@ import { createBrowserHistory } from 'history';
 export default function App() {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const history = createBrowserHistory();
 
   useEffect(() => {

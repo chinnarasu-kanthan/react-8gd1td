@@ -31,8 +31,9 @@ label {
   border-radius: 50%;
 }
 
-nav a,nav a:hover {
-  color: #ffffff;
+nav span,nav span:hover {
+  color: #ffff;
+    cursor: pointer;
 }
 
 .bg-primary {
