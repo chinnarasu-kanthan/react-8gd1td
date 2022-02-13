@@ -2,7 +2,7 @@ import React, {  useState, useEffect } from 'react';
 import {  useSelector } from 'react-redux';
 
 const importView = (layout) =>
-  React.lazy(() => import("./"+layout+".jsx").catch((e) => import('./Layout')));
+  React.lazy(() => import("./"+layout).catch((e) => import('./Layout')));
 
 const Dashboard = () => {
   const [views, setViews] = useState([]);
@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log(currentUser.layout+"adsdasd");
-  
+      let layout =currentUser ? currentUser.layout:"Layout";
   async function loadViews() {
           const View = await importView(currentUser.layout);
       Promise.resolve(<View />).then(setViews);
