@@ -28,13 +28,13 @@ export default function App() {
     <BrowserRouter>
       <div>
         {currentUser ? (
-          <nav className="navbar navbar-expand navbar-dark bg-primary">
-            <div className="nav navbar-nav navbar-right">
+          <nav className="navbar navbar-expand bg-primary">
+            <div className="navbar-nav mr-auto">
               <li className="nav-item ">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/login" className="navbar-brand pull-right" onClick={logOut}>
                   LogOut
                 </a>
-              </li>
+                </li>
             </div>
           </nav>
         ) : (

@@ -10,9 +10,10 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log(currentUser.layout+"adsdasd");
-    async function loadViews() {
-      const View = importView(currentUser.layout);
-      setViews(<View />);
+  
+  async function loadViews() {
+          const View = await importView(currentUser.layout);
+      Promise.resolve(<View />).then(setViews);
     }
    loadViews();
   }, [currentUser]);

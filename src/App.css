@@ -30,3 +30,11 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+nav a,nav a:hover {
+  color: #ffffff;
+}
+
+.bg-primary {
+    justify-content: end;
+}
