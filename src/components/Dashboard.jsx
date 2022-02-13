@@ -19,7 +19,7 @@ const Dashboard = () => {
       Promise.resolve(<View />).then(setViews);
     }
    loadViews();
-  }, [currentUser]);
+  }, [store]);
 
   return (
     <React.Suspense fallback="Loading views...">
