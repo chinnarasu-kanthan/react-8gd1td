@@ -1,10 +1,11 @@
 import React , {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-const Layout = (props) => {
+
+const Layout = (authUser) => {
 
   let { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
-  console.log(currentUser.firstName);
+
+
 
   
   return (
@@ -31,4 +32,6 @@ const Layout = (props) => {
 };
 
 
-export default Layout;
+
+export default Layout
+

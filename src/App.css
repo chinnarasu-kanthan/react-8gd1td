@@ -31,7 +31,7 @@ label {
   border-radius: 50%;
 }
 
-nav span,nav span:hover {
+nav a,nav a:hover {
   color: #ffff;
     cursor: pointer;
 }
