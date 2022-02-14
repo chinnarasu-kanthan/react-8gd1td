@@ -1,25 +1,21 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 
-import { logout } from "./actions/auth";
+import { logout } from './actions/auth';
 import { clearMessage } from './actions/message';
 import { createBrowserHistory } from 'history';
 
-
 function RequireAuth({ children, redirectTo }) {
   let isAuthenticated = useSelector((state) => state.auth);
-  alert(isAuthenticated);
-  return isAuthenticated ? children : <Navigate to={redirectTo} />;
+  return isAuthenticated.isLoggedIn ? children : <Navigate to={redirectTo} />;
 }
 
 export default function App() {
-
- 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = createBrowserHistory();
@@ -29,12 +25,11 @@ export default function App() {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-  
 
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
- 
+
   return (
     <BrowserRouter>
       <div>
@@ -42,10 +37,14 @@ export default function App() {
           <nav className="navbar navbar-expand bg-primary">
             <div className="navbar-nav mr-auto">
               <li className="nav-item ">
-                <a href="login" className="navbar-brand pull-right" onClick={logOut}>
+                <a
+                  href="login"
+                  className="navbar-brand pull-right"
+                  onClick={logOut}
+                >
                   LogOut
                 </a>
-                </li>
+              </li>
             </div>
           </nav>
         ) : (
@@ -53,17 +52,18 @@ export default function App() {
         )}
 
         <div className="container mt-3">
-        <Routes>
-        <Route element={<App />}>
-          
-          <Route path="/login" element={<Login />} />
-          <Route element={<RequireAuth />}>
-          
-            <Route path="/" element={<Dashboard />} />
-          </Route>
-        </Route>
-        <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route exact path="/login" element={<Login />} />
+
+            <Route
+              path="/"
+              element={
+                <RequireAuth redirectTo="/login">
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+          </Routes>
         </div>
 
         {/* <AuthVerify logOut={logOut}/> */}

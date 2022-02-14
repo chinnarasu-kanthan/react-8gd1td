@@ -7,12 +7,10 @@ const Layout = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     setUser(currentUser)
-    if (!(currentUser)) {
-      alert();
-    }
+ 
   }, [currentUser, dispatch])
 
-  console.log(cuser+"currentUser");
+  
   return (
     <div className="container">
       <div className="card card-container">
@@ -21,7 +19,7 @@ const Layout = () => {
             <strong>Profile</strong> 
           </h3>
         </header>
-        <p>
+        {/* <p>
           <strong>First Name:{cuser.firstName}</strong>
         </p>
         <p>
@@ -29,7 +27,7 @@ const Layout = () => {
         </p>
         <p>
           <strong>Email:{cuser.username}</strong>
-        </p>
+        </p> */}
     
       </div>
     </div>

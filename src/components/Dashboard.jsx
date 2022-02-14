@@ -15,7 +15,7 @@ const Dashboard = () => {
    let cuser = JSON.parse(JSON.stringify(user.user));
       let layout =cuser ? cuser.layout:"Layout";
   async function loadViews() {
-          const View = await importView(currentUser.layout);
+          const View = await importView(layout);
       Promise.resolve(<View />).then(setViews);
     }
    loadViews();
