@@ -1,12 +1,14 @@
 import React , {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-const Layout = () => {
+const Layout = (props) => {
 
   let [cuser , setUser] = useState([]);
   let { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
   useEffect(() => {
-    setUser(currentUser)
+    var user = sessionStorage.getItem("user");
+    console.log(user);
+    setUser(user)
  
   }, [currentUser, dispatch])
 
@@ -19,7 +21,7 @@ const Layout = () => {
             <strong>Profile</strong> 
           </h3>
         </header>
-        {/* <p>
+        <p>
           <strong>First Name:{cuser.firstName}</strong>
         </p>
         <p>
@@ -27,7 +29,7 @@ const Layout = () => {
         </p>
         <p>
           <strong>Email:{cuser.username}</strong>
-        </p> */}
+        </p>
     
       </div>
     </div>
