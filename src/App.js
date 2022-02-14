@@ -1,17 +1,25 @@
-import React, { useHistory, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+
 import { logout } from "./actions/auth";
 import { clearMessage } from './actions/message';
 import { createBrowserHistory } from 'history';
 
 
+function RequireAuth({ children, redirectTo }) {
+  let isAuthenticated = useSelector((state) => state.auth);
+  alert(isAuthenticated);
+  return isAuthenticated ? children : <Navigate to={redirectTo} />;
+}
+
 export default function App() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+
+ 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = createBrowserHistory();
@@ -22,11 +30,9 @@ export default function App() {
     });
   }, [dispatch]);
   
-  
+
   const logOut = useCallback(() => {
     dispatch(logout());
-    history.push('/login');
-    window.location.reload();
   }, [dispatch]);
  
   return (
@@ -36,9 +42,9 @@ export default function App() {
           <nav className="navbar navbar-expand bg-primary">
             <div className="navbar-nav mr-auto">
               <li className="nav-item ">
-                <span className="navbar-brand pull-right" onClick={logOut}>
+                <a href="login" className="navbar-brand pull-right" onClick={logOut}>
                   LogOut
-                </span>
+                </a>
                 </li>
             </div>
           </nav>
@@ -47,10 +53,17 @@ export default function App() {
         )}
 
         <div className="container mt-3">
-          <Routes>
+        <Routes>
+        <Route element={<App />}>
+          
+          <Route path="/login" element={<Login />} />
+          <Route element={<RequireAuth />}>
+          
             <Route path="/" element={<Dashboard />} />
-            <Route exact path="/login" element={<Login />} />
-          </Routes>
+          </Route>
+        </Route>
+        <Route path="*" element={<NotFound />} />
+        </Routes>
         </div>
 
         {/* <AuthVerify logOut={logOut}/> */}

@@ -11,7 +11,6 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case LOGIN_SUCCESS:
-      console.log(payload);
       return {
         ...state,
         isLoggedIn: true,
