@@ -6,7 +6,7 @@ const Layout = (props) => {
   let { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
   useEffect(() => {
-    var user = sessionStorage.getItem("user");
+    var user = localStorage.getItem("user");
     console.log(user);
     setUser(user)
  
