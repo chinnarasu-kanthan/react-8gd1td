@@ -2,15 +2,9 @@ import React , {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 const Layout = (props) => {
 
-  let [cuser , setUser] = useState([]);
   let { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
-  useEffect(() => {
-    var user = localStorage.getItem("user");
-    console.log(user);
-    setUser(user)
- 
-  }, [currentUser, dispatch])
+  console.log(currentUser.firstName);
 
   
   return (
@@ -22,13 +16,13 @@ const Layout = (props) => {
           </h3>
         </header>
         <p>
-          <strong>First Name:{cuser.firstName}</strong>
+          <strong>First Name:{currentUser.firstName}</strong>
         </p>
         <p>
-          <strong>Last Name:{cuser.lastName}</strong>
+          <strong>Last Name:{currentUser.lastName}</strong>
         </p>
         <p>
-          <strong>Email:{cuser.username}</strong>
+          <strong>Email:{currentUser.username}</strong>
         </p>
     
       </div>

@@ -1,6 +1,6 @@
 import React, {  useState, useEffect } from 'react';
-import {  useSelector } from 'react-redux';
-
+import {  useDispatch, useSelector } from 'react-redux';
+import { createBrowserHistory } from 'history';
 
 const importView = (layout) =>
   React.lazy(() => import("./"+layout).catch((e) => import('./Layout')));
@@ -8,8 +8,15 @@ const importView = (layout) =>
 const Dashboard = () => {
   const [views, setViews] = useState([]);
   const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const history = createBrowserHistory();
 
-  
+  useEffect(() => {
+    history.listen((location) => {
+      dispatch(clearMessage()); // clear message when changing location
+    });
+  }, [dispatch]);
+
   useEffect(() => {
   
       let layout =currentUser ? currentUser.layout:"Layout";
